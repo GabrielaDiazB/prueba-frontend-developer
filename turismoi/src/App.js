@@ -43,7 +43,7 @@ class App extends Component {
         <div>
           {data.map(item => (
             <div key={item.id}>
-              <img src={item.principal_photo} alt="" />
+              <img src={item.principal_photo} alt="imagen de tour" />
               <div>
                 <h1>{item.name}</h1>
                 <h2>{item.city_names}</h2>
