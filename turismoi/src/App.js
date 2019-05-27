@@ -31,12 +31,34 @@ class App extends Component {
 
   render() {
     const { isLoaded, items } = this.state;
-    console.log(items);
+    const data = Object.values(items)[0];
     if (!isLoaded) {
-      return <div>Loading...</div>;
+      return (
+        <div>
+          <h1>Loading...</h1>
+        </div>
+      );
     } else {
-      return <div>Cargó</div>;
+      return (
+        <div>
+          {data.map(item => (
+            <div key={item.id}>
+              <img src={item.principal_photo} alt="" />
+              <div>
+                <h1>{item.name}</h1>
+                <h2>{item.city_names}</h2>
+                <div>
+                  <h3>{item.days_and_nights}</h3>
+                  <small>Desde:</small>
+                  <h3>S/. {item.price}</h3>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      );
     }
   }
 }
+
 export default App;
