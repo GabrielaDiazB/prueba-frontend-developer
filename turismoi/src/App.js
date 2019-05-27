@@ -61,7 +61,7 @@ class App extends Component {
                     <h3 className="card-text">{item.days_and_nights}</h3>
                   </div>
                   <div>
-                    <small class="text-muted">Desde:</small>
+                    <small className="text-muted">Desde:</small>
                     <h3 className="card-text">S/. {item.price}</h3>
                   </div>
                 </div>
