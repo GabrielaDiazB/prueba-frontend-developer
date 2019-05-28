@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Filter from './components/Filter';
 // import logo from './logo.svg';
 import './App.css';
 
@@ -107,6 +108,7 @@ class App extends Component {
       return (
         <>
           <h1>Tours y Actividades Perú</h1>
+          <Filter />
           <div>
             <select
               name="order"
