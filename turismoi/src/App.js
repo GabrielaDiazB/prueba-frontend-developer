@@ -9,6 +9,7 @@ class App extends Component {
     this.toggleSortPriceAsc = this.toggleSortPriceAsc.bind(this);
     this.toggleSortPriceDesc = this.toggleSortPriceDesc.bind(this);
     this.toggleSortDaysAsc = this.toggleSortDaysAsc.bind(this);
+    this.toggleFilterRegion = this.toggleFilterRegion.bind(this);
     this.state = {
       items: [],
       isLoaded: false
@@ -67,6 +68,17 @@ class App extends Component {
     }
   }
 
+  toggleFilterRegion(city) {
+    const { items } = this.state;
+    const data = Object.values(items)[0];
+    let newItems = data.regions;
+    let regex = new RegExp(city, 'i');
+    this.setState({
+      data: newItems.Filter(item => regex.test(item.regions.name))
+    });
+    console.log('hola');
+  }
+
   setItemsStateOnProps() {
     const myHeaders = new Headers({
       'Content-Type': 'aplication/json',
@@ -108,7 +120,7 @@ class App extends Component {
       return (
         <>
           <h1>Tours y Actividades Perú</h1>
-          <Filter />
+          <Filter onChange={city => this.toggleFilterRegion(city.target.key)} />
           <div>
             <select
               name="order"
