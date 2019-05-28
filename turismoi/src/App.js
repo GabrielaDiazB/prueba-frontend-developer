@@ -5,13 +5,41 @@ import './App.css';
 class App extends Component {
   constructor(tours) {
     super(tours);
+    this.toggleSortPriceAsc = this.toggleSortPriceAsc.bind(this);
+    this.toggleSortPriceDesc = this.toggleSortPriceDesc.bind(this);
     this.state = {
       items: [],
       isLoaded: false
     };
   }
 
-  componentDidMount() {
+  toggleSortPriceAsc(event) {
+    const { items } = this.state;
+    const data = Object.values(items)[0];
+    let newItems = data;
+    this.setState({
+      data: newItems.sort((a, b) => (a.price > b.price ? 1 : -1))
+    });
+  }
+
+  toggleSortPriceDesc(event) {
+    const { items } = this.state;
+    const data = Object.values(items)[0];
+    let newItems = data;
+    this.setState({
+      data: newItems.sort((a, b) => (a.price > b.price ? -1 : 1))
+    });
+  }
+
+  selectOrder(orderType) {
+    if (orderType === 'priceAsc') {
+      this.toggleSortPriceAsc();
+    } else if (orderType === 'priceDesc') {
+      this.toggleSortPriceDesc();
+    }
+  }
+
+  setItemsStateOnProps() {
     const myHeaders = new Headers({
       'Content-Type': 'aplication/json',
       Authorization: 'Token token=f2b15a0105d45'
@@ -29,6 +57,16 @@ class App extends Component {
       });
   }
 
+  componentDidUpdate(prevProps, prevState, snapshop) {
+    if (this.props !== prevProps) {
+      this.setItemsStateOnProps();
+    }
+  }
+
+  componentDidMount() {
+    this.setItemsStateOnProps();
+  }
+
   render() {
     const { isLoaded, items } = this.state;
     const data = Object.values(items)[0];
@@ -42,10 +80,15 @@ class App extends Component {
       return (
         <>
           <div>
-            <select name="order">
+            <select
+              name="order"
+              onChange={orderType => this.selectOrder(orderType.target.value)}
+            >
               <option value="option">Ordenar por...</option>
-              <option value="price">Precio</option>
-              <option value="days">Días</option>
+              <option value="priceAsc">Los de menor precio primero</option>
+              <option value="priceDesc">Los de mayor precio primero</option>
+              <option value="daysAsc">Los de menos días primero</option>
+              <option value="daysDesc">Los de más días primero</option>
             </select>
           </div>
           <div className="row row-flex row-flex-wrap">
