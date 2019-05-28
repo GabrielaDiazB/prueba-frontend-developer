@@ -7,6 +7,7 @@ class App extends Component {
     super(tours);
     this.toggleSortPriceAsc = this.toggleSortPriceAsc.bind(this);
     this.toggleSortPriceDesc = this.toggleSortPriceDesc.bind(this);
+    this.toggleSortDaysAsc = this.toggleSortDaysAsc.bind(this);
     this.state = {
       items: [],
       isLoaded: false
@@ -31,11 +32,41 @@ class App extends Component {
     });
   }
 
+  toggleSortDaysAsc(event) {
+    const { items } = this.state;
+    const data = Object.values(items)[0];
+    let newItems = data;
+    this.setState({
+      data: newItems.sort((a, b) =>
+        a.days_and_nights > b.days_and_nights ? 1 : -1
+      )
+    });
+  }
+
+  toggleSortDaysDesc(event) {
+    const { items } = this.state;
+    const data = Object.values(items)[0];
+    let newItems = data;
+    this.setState({
+      data: newItems.sort((a, b) =>
+        a.days_and_nights > b.days_and_nights ? -1 : 1
+      )
+    });
+  }
+
   selectOrder(orderType) {
     if (orderType === 'priceAsc') {
       this.toggleSortPriceAsc();
     } else if (orderType === 'priceDesc') {
       this.toggleSortPriceDesc();
+    } else if (orderType === 'daysAsc') {
+      this.toggleSortDaysAsc();
+    } else if (orderType === 'daysDesc') {
+      this.toggleSortDaysDesc();
+    } else {
+      this.setState = {
+        items: []
+      };
     }
   }
 
