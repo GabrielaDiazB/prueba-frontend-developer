@@ -63,10 +63,6 @@ class App extends Component {
       this.toggleSortDaysAsc();
     } else if (orderType === 'daysDesc') {
       this.toggleSortDaysDesc();
-    } else {
-      this.setState = {
-        items: []
-      };
     }
   }
 
@@ -110,6 +106,7 @@ class App extends Component {
     } else {
       return (
         <>
+          <h1>Tours y Actividades Perú</h1>
           <div>
             <select
               name="order"
