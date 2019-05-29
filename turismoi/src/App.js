@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Filter from './components/Filter';
 // import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 
 class App extends Component {
   constructor(tours) {
@@ -118,7 +118,7 @@ class App extends Component {
       );
     } else {
       return (
-        <>
+        <div className="container-fluid">
           <h1>Tours y Actividades Perú</h1>
           <Filter onChange={city => this.toggleFilterRegion(city.target.key)} />
           <div>
@@ -162,7 +162,7 @@ class App extends Component {
               </div>
             ))}
           </div>
-        </>
+        </div>
       );
     }
   }
